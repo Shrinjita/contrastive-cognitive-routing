@@ -1,0 +1,7 @@
+langgraph
+langchain
+numpy
+pandas
+typing-extensions
+langchain_core
+langchain_community
