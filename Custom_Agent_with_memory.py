@@ -1,69 +1,28 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# 1. Import LLM
-# 2. Import tool
-# 3. Bind to LLM
-# 4. Prompt template
-# 5. custom agent with memory 
-# 6. Showcase in gradio
-
-# Import LLM
-
-# In[1]:
-
 from dotenv import load_dotenv
-load_dotenv()
-
 from langchain_openai import ChatOpenAI
 import os
+from langchain_community.tools import WikipediaQueryRun
+from langchain_community.utilities import WikipediaAPIWrapper
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import AIMessage, HumanMessage
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain.agents import create_openai_functions_agent, AgentExecutor
+from langchain.agents import AgentExecutor
+from langchain.callbacks import get_openai_callback
+import gradio as gr
+
+load_dotenv()
 
 llm = ChatOpenAI(model="gpt-3.5-turbo", 
                  temperature=0, 
                  openai_api_key=os.environ.get("OPENAI_API_KEY"))
 
-
-# Import Tool
-
-# In[2]:
-
-
-from langchain_community.tools import WikipediaQueryRun
-from langchain_community.utilities import WikipediaAPIWrapper
-
-
-# In[3]:
-
-
 wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
-
-
-# In[4]:
-
-
 wikipedia.run("Highest goals in a single season of La Liga")
-
-
-# Bind Tool with LLM
-
-# In[5]:
-
-
 tools = [wikipedia]
 
-
-# In[6]:
-
-
 llm_with_tools = llm.bind_tools(tools)
-
-
-# Create Prompt for LLM
-
-# In[7]:
-
-
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 prompt = ChatPromptTemplate.from_messages(
     [
@@ -76,26 +35,7 @@ prompt = ChatPromptTemplate.from_messages(
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ]
 )
-
-
-# In[8]:
-
-
-from langchain_core.messages import AIMessage, HumanMessage
-
 chat_history = []
-
-
-# Create Custom Agent with Memory
-
-# In[9]:
-
-
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-
-from langchain.agents import create_openai_functions_agent, AgentExecutor
-
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
@@ -104,29 +44,13 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "{input}"),
 ])
 
-# In[10]:
-
-
-from langchain.agents import AgentExecutor
-
-# In[11]:
 agent = create_openai_functions_agent(llm, tools, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-
-from langchain.callbacks import get_openai_callback
-
-
-# In[12]:
-
 
 with get_openai_callback() as cb:
     out = agent_executor.invoke({"input": "Highest goals in a single season of La Liga", "chat_history": chat_history})
 print(out)
 print(cb)
-
-
-# In[13]:
-
 
 chat_history.extend(
     [
@@ -137,18 +61,6 @@ chat_history.extend(
 
 print(chat_history)
 agent_executor.invoke({"input": "How many goals he has scored overall in L Liga?", "chat_history": chat_history})
-
-
-# Showcase in Gradio
-
-# In[14]:
-
-
-import gradio as gr
-
-
-# In[15]:
-
 
 agent_history = []
 def call_agent(query, chat_history):
@@ -173,10 +85,6 @@ def call_agent(query, chat_history):
 
     return output["output"], chat_history
 
-
-# In[16]:
-
-
 with gr.Blocks() as demo:
     chatbot = gr.Chatbot(label = "QnA with Wikipedia")
     question = gr.Textbox(label = "Ask you query here")
@@ -196,9 +104,3 @@ with gr.Blocks() as demo:
 
 demo.queue()
 demo.launch()
-
-
-
-
-
-
