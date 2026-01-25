@@ -1,0 +1,60 @@
+{
+    "policies": [
+        {
+            "id": "POL-001",
+            "title": "Budget Approval Process",
+            "content": "All departmental budget requests must be submitted by the 25th of each month. Expenditures under $10,000 can be approved by department heads. Expenditures between $10,000-$50,000 require Chief of Staff approval. Expenditures over $50,000 require CEO approval.",
+            "last_updated": "2024-01-15"
+        },
+        {
+            "id": "POL-002",
+            "title": "Hiring Protocol",
+            "content": "All new hires require: 1) Position justification document, 2) Three rounds of interviews including one with HR, 3) Background check completion, 4) Final approval by department head and Chief of Staff.",
+            "last_updated": "2024-02-10"
+        },
+        {
+            "id": "POL-003",
+            "title": "Vendor Management",
+            "content": "New vendors must pass security audit. Contracts over $25,000 require legal review. All vendor relationships must be documented in the CRM system.",
+            "last_updated": "2024-01-30"
+        },
+        {
+            "id": "POL-004",
+            "title": "Marketing Expenditure",
+            "content": "Marketing budget cannot exceed 15% of quarterly revenue. All campaigns require ROI projection. Social media campaigns require brand guideline compliance check.",
+            "last_updated": "2024-03-01"
+        },
+        {
+            "id": "POL-005",
+            "title": "Data Security",
+            "content": "All customer data must be encrypted. Third-party data sharing requires CTO approval. Breach notification must occur within 24 hours.",
+            "last_updated": "2024-02-28"
+        }
+    ],
+    "past_decisions": [
+        {
+            "id": "DEC-001",
+            "date": "2024-03-15",
+            "situation": "Marketing requested $45,000 for Q2 campaign",
+            "decision": "Approved $40,000 with requirement for detailed ROI tracking",
+            "reasoning": "Within budget limits, aligned with Q2 goals, but trimmed based on historical ROI data",
+            "constraints_referenced": ["POL-004", "POL-001"]
+        },
+        {
+            "id": "DEC-002",
+            "date": "2024-03-10",
+            "situation": "Engineering wanted to hire senior developer at $180,000",
+            "decision": "Approved with condition of 6-month performance review",
+            "reasoning": "Critical role for product roadmap, within market rate, but added review for accountability",
+            "constraints_referenced": ["POL-002"]
+        },
+        {
+            "id": "DEC-003",
+            "date": "2024-03-05",
+            "situation": "Request to share customer data with analytics vendor",
+            "decision": "Denied until vendor completes security audit",
+            "reasoning": "POL-005 requires security audit for all vendors before data sharing",
+            "constraints_referenced": ["POL-005", "POL-003"]
+        }
+    ]
+}

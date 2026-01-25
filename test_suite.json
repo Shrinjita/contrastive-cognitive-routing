@@ -1,0 +1,12 @@
+[
+    {
+        "query": "Should we approve a $45,000 marketing campaign?",
+        "category": "financial_decision",
+        "expected_references": ["POL-001"]
+    },
+    {
+        "query": "What's our hiring policy for senior positions?",
+        "category": "policy_query",
+        "expected_references": ["POL-002"]
+    }
+]
