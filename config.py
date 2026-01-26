@@ -1,33 +1,65 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
+
+# Get project root directory
+PROJECT_ROOT = Path(__file__).parent
 
 load_dotenv()
 
 class Config:
-    # Gemini API Configuration
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "models/gemini-flash-latest")
+    # Model Configuration
+    MODEL_PROVIDER = "ollama"  # "ollama", "gemini", or "huggingface"
+    OLLAMA_MODEL = "phi"  # phi, mistral, llama2, etc.
+    OLLAMA_BASE_URL = "http://localhost:11434"
     
-    # Alternative working models based on your tests
-    ALTERNATIVE_MODELS = [
-        "models/gemini-flash-latest",
-        "models/gemini-2.5-flash",
-        "models/gemini-2.0-flash",
-        "models/gemini-pro-latest"
+    # Gemini Configuration (optional fallback)
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+    GEMINI_MODEL = "models/gemini-flash-latest"
+    
+    # Hugging Face (optional fallback)
+    HF_TOKEN = os.getenv("HF_TOKEN", "")
+    HF_MODEL = "gpt2"
+    
+    # Epistemic Layer Configuration
+    EPISTEMIC_N_VARIANTS = 3
+    EPISTEMIC_TEMPERATURE = 0.7
+    CONFIDENCE_THRESHOLD = 0.7
+    VARIANCE_THRESHOLD = 0.3
+    
+    # Data Paths (relative to project root)
+    DATA_DIR = PROJECT_ROOT / "data"
+    CONFIGS_DIR = DATA_DIR / "configs"
+    POLICIES_DIR = DATA_DIR / "policies"
+    TEST_DIR = DATA_DIR / "test_cases"
+    TRAINING_DIR = DATA_DIR / "training"
+    LOGS_DIR = PROJECT_ROOT / "logs"
+    RESULTS_DIR = PROJECT_ROOT / "results"
+    
+    # File paths
+    IDENTITY_PATH = CONFIGS_DIR / "identity.json"
+    POLICIES_PATH = POLICIES_DIR / "company_policies.json"
+    TEST_SUITE_PATH = TEST_DIR / "test_suite.json"
+    MEMORY_PATH = DATA_DIR / "agent_memory.pkl"
+    TRAINING_DATA_PATH = TRAINING_DIR / "epistemic_training.jsonl"
+    
+    # Evaluation Metrics
+    METRICS = [
+        "epistemic_consistency",
+        "decision_stability", 
+        "hallucination_score",
+        "response_time",
+        "token_efficiency",
+        "value_alignment"
     ]
-    
-    # Paths
-    IDENTITY_PATH = "identity.json"
-    POLICIES_PATH = "company_policies.json"
-    TEST_SUITE_PATH = "test_suite.json"
     
     # Agent Configuration
     MAX_MEMORY_ITEMS = 100
-    TEMPERATURE = float(os.getenv("TEMPERATURE", "0.1"))
-    MAX_TOKENS = int(os.getenv("MAX_TOKENS", "1000"))
+    TEMPERATURE = 0.3
+    MAX_TOKENS = 500
     
-    # Evaluation
-    N_TEST_CASES = 5  # Start small
-    METRICS = ["identity_consistency", "memory_accuracy", "decision_quality"]
+    # Logging
+    LOG_LEVEL = "INFO"
+    LOG_FILE = LOGS_DIR / "agent.log"
 
 config = Config()

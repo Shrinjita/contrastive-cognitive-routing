@@ -1,47 +1,70 @@
-import os
-from agent.identity_agent import IdentityAgent
-from baseline.rag_baseline import RAGBaseline
-import config
+#!/usr/bin/env python3
+"""
+Main entry point for Contrastive Cognitive Routing Agent
+"""
 
-def main():
-    print("=" * 60)
-    print("Conscious Proxy Agent - Demo")
-    print("=" * 60)
+import argparse
+import os
+import sys
+
+# Add current directory to path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from core.proxy_agent import EpistemicProxyAgent
+
+def run_demo():
+    """Demonstrate Contrastive Cognitive Routing"""
+    agent = EpistemicProxyAgent()
     
-    # Check API key
-    if not config.config.OPENAI_API_KEY:
-        print("ERROR: OpenAI API key not found in .env file")
-        return
-    
-    # Initialize systems
-    print("\nInitializing systems...")
-    identity_agent = IdentityAgent()
-    rag_baseline = RAGBaseline()
-    
-    # Demo queries
-    demo_queries = [
+    queries = [
         "Should we approve a $45,000 marketing campaign?",
-        "What's our policy on hiring senior developers?"
+        "How should we handle sensitive customer data sharing?",
     ]
     
-    for i, query in enumerate(demo_queries, 1):
-        print(f"\n{'─' * 50}")
-        print(f"QUERY {i}: {query}")
-        print(f"{'─' * 50}")
-        
-        # Identity Agent
-        print("\nIDENTITY AGENT:")
-        identity_result = identity_agent.query(query)
-        print(f"Response: {identity_result['response'][:200]}...")
-        
-        # RAG Baseline
-        print("\nRAG BASELINE:")
-        rag_result = rag_baseline.query(query)
-        print(f"Response: {rag_result['response'][:200]}...")
+    print("\n" + "="*70)
+    print("CONTRASTIVE COGNITIVE ROUTING DEMONSTRATION")
+    print("a* = arg max_a min_{C' ∈ E(C)} P(a | x, C')")
+    print("="*70)
     
-    print(f"\n{'=' * 60}")
-    print("Demo Complete!")
-    print(f"{'=' * 60}")
+    for i, query in enumerate(queries, 1):
+        print(f"\n\n📌 QUERY {i}: {query}")
+        print("-"*70)
+        
+        result = agent.process_query(query)
+        
+        print(f"\n🎯 SELECTED ACTION:")
+        print(f"  {result['routing_result'].selected_action}")
+        
+        print(f"\n📊 CCR METRICS:")
+        metrics = result['metrics']
+        for key, value in metrics.items():
+            print(f"  {key}: {value:.3f}")
+        
+        print(f"\n📝 EXPLANATION:")
+        print(f"{result['response']}")
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Contrastive Cognitive Routing for Epistemic-Aware Proxy Agents"
+    )
+    parser.add_argument("--mode", choices=["demo", "single"],
+                       default="demo", help="Mode to run")
+    parser.add_argument("--query", type=str, help="Query to process")
+    
+    args = parser.parse_args()
+    
+    if args.query:
+        # Process single query
+        agent = EpistemicProxyAgent()
+        result = agent.process_query(args.query)
+        
+        print(f"\nQuery: {args.query}")
+        print(f"\nSelected Action: {result['routing_result'].selected_action}")
+        print(f"\nResponse: {result['response']}")
+        print(f"\nMetrics: {result['metrics']}")
+        
+    elif args.mode == "demo":
+        run_demo()
 
 if __name__ == "__main__":
     main()
