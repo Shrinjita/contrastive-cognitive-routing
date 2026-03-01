@@ -4,6 +4,12 @@ requests>=2.31.0
 numpy>=1.24.0
 python-dotenv>=1.0.0
 
-# Optional fallbacks (comment out if not needed)
+# PageIndex — vectorless, reasoning-based RAG
+# pip install -U pageindex
+# Requires PAGEINDEX_API_KEY in .env for cloud mode.
+# Falls back to local tree-search mode automatically if key is absent.
+pageindex>=0.1.0
+
+# Optional LLM fallbacks (comment out if not needed)
 # google-generativeai>=0.3.0
 # huggingface_hub>=0.20.0
