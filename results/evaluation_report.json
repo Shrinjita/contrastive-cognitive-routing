@@ -1,0 +1,166 @@
+{
+  "results": [
+    {
+      "id": "TC-001",
+      "category": "financial_decision",
+      "query": "Should we approve a $45,000 marketing campaign?",
+      "selected_action": "Approve the $45,000 marketing campaign as it aligns with our core value of Innovation Driven.",
+      "keyword_alignment": 0.333,
+      "robustness_score": 0.8,
+      "robustness_pass": true,
+      "worst_case_score": 0.8,
+      "epistemic_variance": 0.0,
+      "epistemic_stability": 1.0,
+      "decision_quality": 0.8,
+      "response_time_s": 192.31,
+      "bootstrap_ci_95": {
+        "mean": 0.7541666666666668,
+        "lower": 0.7291666666666666,
+        "upper": 0.775
+      },
+      "raw_variant_scores": [
+        0.7,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.75,
+        0.75,
+        0.7,
+        0.7,
+        0.75,
+        0.7
+      ]
+    },
+    {
+      "id": "TC-002",
+      "category": "financial_decision",
+      "query": "A vendor has submitted a $30,000 contract. Should we sign it?",
+      "selected_action": "The deferral/more-info approach would be to ask for",
+      "keyword_alignment": 0.0,
+      "robustness_score": 0.7,
+      "robustness_pass": true,
+      "worst_case_score": 0.7,
+      "epistemic_variance": 0.0,
+      "epistemic_stability": 1.0,
+      "decision_quality": 0.7,
+      "response_time_s": 164.75,
+      "bootstrap_ci_95": {
+        "mean": 0.6250000000000001,
+        "lower": 0.4916666666666667,
+        "upper": 0.7166666666666668
+      },
+      "raw_variant_scores": [
+        0.7,
+        0.8,
+        0.7,
+        0.5,
+        0.5,
+        0.0,
+        0.7,
+        0.8,
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "id": "TC-003",
+      "category": "policy_query",
+      "query": "What is our hiring policy for senior positions?",
+      "selected_action": "Analyze the current budget and identify areas where we can reduce costs without compromising on quality or service to our customers. We'll also explore opportunities for revenue growth through innovative solutions and partnerships.",
+      "keyword_alignment": 0.333,
+      "robustness_score": 0.8,
+      "robustness_pass": true,
+      "worst_case_score": 0.8,
+      "epistemic_variance": 0.0,
+      "epistemic_stability": 1.0,
+      "decision_quality": 0.8,
+      "response_time_s": 185.04,
+      "bootstrap_ci_95": {
+        "mean": 0.8166666666666669,
+        "lower": 0.8000000000000002,
+        "upper": 0.8500000000000001
+      },
+      "raw_variant_scores": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        1.0,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "id": "TC-004",
+      "category": "policy_query",
+      "query": "What approval is needed for a $12,000 expenditure?",
+      "selected_action": "Conduct a thorough risk assessment and present the findings to the CEO for approval before moving forward with the expenditure.",
+      "keyword_alignment": 0.0,
+      "robustness_score": 0.8,
+      "robustness_pass": true,
+      "worst_case_score": 0.8,
+      "epistemic_variance": 0.0,
+      "epistemic_stability": 1.0,
+      "decision_quality": 0.8,
+      "response_time_s": 189.84,
+      "bootstrap_ci_95": {
+        "mean": 0.7833333333333333,
+        "lower": 0.7625000000000001,
+        "upper": 0.8000000000000002
+      },
+      "raw_variant_scores": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.75,
+        0.8,
+        0.7,
+        0.75,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ]
+    }
+  ],
+  "aggregate": {
+    "n_queries": 4,
+    "robustness_pass_rate": 1.0,
+    "mean_robustness": 0.775,
+    "std_robustness": 0.043,
+    "mean_worst_case": 0.775,
+    "mean_epistemic_variance": 0.0,
+    "mean_decision_quality": 0.775,
+    "mean_keyword_alignment": 0.167,
+    "mean_response_time_s": 182.99,
+    "bootstrap_ci_robustness": {
+      "mean": 0.7749999999999999,
+      "lower": 0.7250000000000001,
+      "upper": 0.8
+    },
+    "category_breakdown": {
+      "financial_decision": {
+        "mean_robustness": 0.75,
+        "n": 2
+      },
+      "policy_query": {
+        "mean_robustness": 0.8,
+        "n": 2
+      }
+    }
+  },
+  "baseline_comparison": {
+    "mean_worst_case_improvement_vs_greedy": 0.017,
+    "mean_variance_reduction_vs_greedy": 0.5
+  }
+}

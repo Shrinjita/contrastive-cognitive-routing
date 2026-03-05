@@ -10,6 +10,9 @@ python-dotenv>=1.0.0
 # Falls back to local tree-search mode automatically if key is absent.
 pageindex>=0.1.0
 
+# Streamlit UI
+streamlit>=1.35.0
+
 # Optional LLM fallbacks (comment out if not needed)
 # google-generativeai>=0.3.0
 # huggingface_hub>=0.20.0
